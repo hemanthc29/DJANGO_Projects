@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal - College Management System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --accent: #22d3ee;
+            --accent-glow: rgba(34, 211, 238, 0.4);
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Header */
+        header {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-main);
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 4rem 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Banner */
+        .hero {
+            text-align: center;
+            max-width: 700px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Dashboard Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Glassmorphism Card */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 2rem;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 250px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%);
+            color: var(--text-main);
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px var(--primary-glow);
+        }
+
+        .card-btn:hover {
+            opacity: 0.95;
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            transform: scale(1.02);
+        }
+
+        /* Dynamic Section Card */
+        .card-dynamic {
+            grid-column: 1 / -1;
+            min-height: auto;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .card-dynamic {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .custom-input {
+            flex-grow: 1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .custom-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 12px var(--accent-glow);
+        }
+
+        .accent-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #0891b2 100%);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .accent-btn:hover {
+            box-shadow: 0 6px 20px rgba(34, 211, 238, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            width: 100%;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--card-border);
+            background: rgba(15, 23, 42, 0.3);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Keyframes */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">College Portal</div>
+        <nav class="nav-links">
+            <a href="/student/" class="active">Student Space</a>
+            <a href="/faculty/">Faculty Space</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Student Home Page</h1>
+            <p>Access the core components of the College Management System's student application. Explore details, manage profile data, retrieve JSON models, and access individual profiles dynamically.</p>
+        </div>
+
+        <div class="grid">
+            <!-- Student Details Card -->
+            <div class="card">
+                <div>
+                    <div class="card-icon">📂</div>
+                    <h3>Student Details</h3>
+                    <p>Retrieve the complete record and profile status summary for current student instances in a structured format.</p>
+                </div>
+                <a href="/student/details/" class="card-btn">View Details</a>
+            </div>
+
+            <!-- Student Profile Card -->
+            <div class="card">
+                <div>
+                    <div class="card-icon">👤</div>
+                    <h3>Student Profile</h3>
+                    <p>Access profile settings, registered academic path, personal description, and configuration options.</p>
+                </div>
+                <a href="/student/profile/" class="card-btn">Manage Profile</a>
+            </div>
+
+            <!-- JSON API Card -->
+            <div class="card">
+                <div>
+                    <div class="card-icon">⚡</div>
+                    <h3>JSON Welcome API</h3>
+                    <p>Request data programmatically. Returns an API-ready JSON response representing the home state.</p>
+                </div>
+                <a href="/student/?format=json" class="card-btn accent-btn" target="_blank">JSON Response</a>
+            </div>
+
+            <!-- Dynamic Search Card -->
+            <div class="card card-dynamic">
+                <div style="flex-grow: 1;">
+                    <div class="card-icon" style="color: var(--accent);">🔍</div>
+                    <h3>Dynamic URL Finder</h3>
+                    <p style="margin-bottom: 0;">Query a specific student record dynamically using their ID parameter route. Enter a numeric ID below to test the endpoint.</p>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="studentIdInput" class="custom-input" placeholder="e.g. 101" value="101">
+                    <button onclick="goToStudentId()" class="card-btn accent-btn">Go</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 College Management System. Built using Django & Modern Aesthetics.</p>
+    </footer>
+
+    <script>
+        function goToStudentId() {
+            const id = document.getElementById('studentIdInput').value || '101';
+            window.location.href = `/student/${id}/`;
+        }
+    </script>
+</body>
+</html>

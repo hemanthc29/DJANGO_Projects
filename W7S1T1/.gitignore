@@ -4,8 +4,7 @@ db.sqlite3
 .DS_Store
 .idea/
 .vscode/
-*.log
-scratch/
 venv/
 .venv/
 env/
+*.log
