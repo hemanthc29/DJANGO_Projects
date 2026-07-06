@@ -2,10 +2,9 @@
 __pycache__/
 db.sqlite3
 .DS_Store
-*.log
-scratch/
 .idea/
 .vscode/
 venv/
 .venv/
 env/
+*.log
